@@ -1,0 +1,3 @@
+include(unqlitepp-win-debug-shared)
+[options]
+unqlitepp:build_testing=True

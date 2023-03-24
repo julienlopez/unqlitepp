@@ -1,0 +1,3 @@
+include(unqlitepp-win-test)
+[options]
+unqlitepp:enable_msvc_code_analysis=True

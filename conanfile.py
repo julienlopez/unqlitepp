@@ -85,7 +85,7 @@ class unQliteppConan(ConanFile):
         cmake.configure()
         cmake.build()
 
-    def _copy_filetype_in_dir(self, file_type : str, output_directory_name : str, source_directory = None):
+    def _copy_filetype_in_dir(self, file_type : str, output_directory_name : str, source_directory = None, keep_path=False):
         if source_directory is None:
             source_directory = self.build_folder
         copy(
@@ -93,7 +93,7 @@ class unQliteppConan(ConanFile):
             file_type,
             src=source_directory,
             dst=os.path.join(self.package_folder, output_directory_name),
-            keep_path=False,
+            keep_path=keep_path,
         )
 
     def package(self):
@@ -101,13 +101,13 @@ class unQliteppConan(ConanFile):
         self._copy_filetype_in_dir("*.a", "lib")
         self._copy_filetype_in_dir("*.dll", "bin")
         self._copy_filetype_in_dir("*.lib", "lib")
-        self._copy_filetype_in_dir("*.hpp", "include", os.path.join(self.source_folder, "lib"))
+        self._copy_filetype_in_dir("*.hpp", "include", os.path.join(self.source_folder, "lib"), keep_path=True)
 
     def package_info(self):
         if not self.in_local_cache:
-            self.cpp_info.components["unqlitepp"].includedirs = ["lib/unqlitepp"]
+            self.cpp_info.includedirs = ["lib/unqlitepp"]
 
-        self.cpp_info.components["unqlitepp"].requires = [
+        self.cpp_info.requires = [
             "unqlite::unqlite",
             "tl-expected::tl-expected",
             #"magic_enum::magic_enum",
@@ -121,4 +121,4 @@ class unQliteppConan(ConanFile):
             else ""
         )
 
-        self.cpp_info.components["unqlitepp"].libs = ["unqlitepp%s" % debug_suffix]
+        self.cpp_info.libs = ["unqlitepp%s" % debug_suffix]

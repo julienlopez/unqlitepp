@@ -6,5 +6,7 @@
 
 int main()
 {
-	return EXIT_SUCCESS;
+    auto db = unqlitepp::openLocalFile("./test.db", unqlitepp::OpenMode::Create);
+
+    return EXIT_SUCCESS;
 }

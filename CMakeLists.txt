@@ -29,6 +29,7 @@ endif()
 
 # subdirs
 add_subdirectory(lib)
+add_subdirectory(example)
 
 option(BUILD_TESTING "Enable unit tests" ON)
 if(BUILD_TESTING)

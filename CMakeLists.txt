@@ -27,8 +27,13 @@ if(MSVC)
   add_definitions("-DNOMINMAX")
 endif()
 
+option(UNQLITEPP_BUILD_EXAMPLE "Build the example executable")
+
 # subdirs
 add_subdirectory(lib)
+if(${UNQLITEPP_BUILD_EXAMPLE})
+	add_subdirectory(example)
+endif()
 
 option(BUILD_TESTING "Enable unit tests" ON)
 if(BUILD_TESTING)
